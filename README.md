@@ -27,7 +27,7 @@ https://github.com/timbersoftware/SwiftUI-Refresh.git
 ### Cocoapods
 
 ```
-pod "SwiftUI-Refresh"
+pod "SwiftUIRefresh"
 ```
 
 Usage
