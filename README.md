@@ -21,7 +21,7 @@ Install
 ### SwiftPM
 
 ```
-https://github.com/timbersoftware/SwiftUI-Refresh.git
+https://github.com/timbersoftware/SwiftUIRefresh.git
 ```
 
 ### Cocoapods
