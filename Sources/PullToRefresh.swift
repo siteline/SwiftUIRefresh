@@ -1,11 +1,11 @@
 import SwiftUI
 
-struct PullToRefresh: UIViewRepresentable {
+public struct PullToRefresh: UIViewRepresentable {
     
     let action: () -> Void
     @Binding var isShowing: Bool
     
-    init(
+    public init(
         action: @escaping () -> Void,
         isShowing: Binding<Bool>
     ) {
