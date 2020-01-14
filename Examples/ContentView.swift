@@ -12,11 +12,11 @@ struct ContentView: View {
                 Text("Item 2")
                 Text("Item 3")
             }
-            .background(PullToRefresh(action: {
+            .pullToRefresh(isShowing: $isShowing) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.isShowing = false
                 }
-            }, isShowing: $isShowing))
+            }
             .navigationBarTitle("Your items")
         }
     }

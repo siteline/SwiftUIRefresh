@@ -1,59 +1,65 @@
 import SwiftUI
+import Introspect
 
-public struct PullToRefresh: UIViewRepresentable {
+private struct PullToRefresh: UIViewRepresentable {
     
-    let action: () -> Void
     @Binding var isShowing: Bool
+    let onRefresh: () -> Void
     
     public init(
-        action: @escaping () -> Void,
-        isShowing: Binding<Bool>
+        isShowing: Binding<Bool>,
+        onRefresh: @escaping () -> Void
     ) {
-        self.action = action
         _isShowing = isShowing
+        self.onRefresh = onRefresh
     }
     
     public class Coordinator {
-        let action: () -> Void
+        let onRefresh: () -> Void
         let isShowing: Binding<Bool>
         
         init(
-            action: @escaping () -> Void,
+            onRefresh: @escaping () -> Void,
             isShowing: Binding<Bool>
         ) {
-            self.action = action
+            self.onRefresh = onRefresh
             self.isShowing = isShowing
         }
         
         @objc
         func onValueChanged() {
             isShowing.wrappedValue = true
-            action()
+            onRefresh()
         }
     }
     
     public func makeUIView(context: UIViewRepresentableContext<PullToRefresh>) -> UIView {
-        return UIView(frame: .zero)
+        let view = UIView(frame: .zero)
+        view.isHidden = true
+        view.isUserInteractionEnabled = false
+        return view
     }
     
-    private func tableView(root: UIView) -> UITableView? {
-        for subview in root.subviews {
-            if let tableView = subview as? UITableView {
-                return tableView
-            } else if let tableView = tableView(root: subview) {
-                return tableView
-            }
+    private func tableView(entry: UIView) -> UITableView? {
+        
+        // Search in ancestors
+        if let tableView = Introspect.findAncestor(ofType: UITableView.self, from: entry) {
+            return tableView
         }
-        return nil
+
+        guard let viewHost = Introspect.findViewHost(from: entry) else {
+            return nil
+        }
+
+        // Search in siblings
+        return Introspect.previousSibling(containing: UITableView.self, from: viewHost)
     }
 
     public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<PullToRefresh>) {
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            guard let viewHost = uiView.superview?.superview else {
-                return
-            }
-            guard let tableView = self.tableView(root: viewHost) else {
+            
+            guard let tableView = self.tableView(entry: uiView) else {
                 return
             }
             
@@ -73,6 +79,15 @@ public struct PullToRefresh: UIViewRepresentable {
     }
     
     public func makeCoordinator() -> Coordinator {
-        return Coordinator(action: action, isShowing: $isShowing)
+        return Coordinator(onRefresh: onRefresh, isShowing: $isShowing)
+    }
+}
+
+extension View {
+    public func pullToRefresh(isShowing: Binding<Bool>, onRefresh: @escaping () -> Void) -> some View {
+        return overlay(
+            PullToRefresh(isShowing: isShowing, onRefresh: onRefresh)
+                .frame(width: 0, height: 0)
+        )
     }
 }

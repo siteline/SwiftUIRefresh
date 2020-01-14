@@ -45,11 +45,11 @@ struct ContentView: View {
             Text("Item 1")
             Text("Item 2")
         }
-        .background(PullToRefresh(action: {
+        .pullToRefresh(isShowing: $isShowing) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.isShowing = false
             }
-        }, isShowing: $isShowing))
+        }
     }
 }
 ```
