@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'SwiftUIRefresh'
-  spec.version = '0.0.1'
+  spec.version = '0.0.2'
   spec.license = { type: 'MIT' }
   spec.homepage = 'https://github.com/timbersoftware/SwiftUIRefresh.git'
   spec.authors = { 'Lois Di Qual' => 'lois@timber.so' }
