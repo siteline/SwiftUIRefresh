@@ -19,7 +19,7 @@ let package = Package(
     targets: [
         .target(
             name: "SwiftUIRefresh",
-            dependencies: [],
+            dependencies: ["Introspect"],
             path: "Sources"
         )
     ]
