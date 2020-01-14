@@ -12,4 +12,5 @@ Pod::Spec.new do |spec|
   spec.source_files = 'Sources/**/*.swift'
   spec.platform = :ios, '13.0'
   spec.swift_version = '5.1'
+  spec.dependency 'Introspect', '~> 0.0.6'
 end
