@@ -13,7 +13,7 @@
 		C085EF2823CD2A910026172A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085EF2723CD2A910026172A /* SceneDelegate.swift */; };
 		C085EF2A23CD2A910026172A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085EF2923CD2A910026172A /* ContentView.swift */; };
 		C085EF3823CD2D310026172A /* SwiftUIRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C085EF1223CD29340026172A /* SwiftUIRefresh.framework */; };
-		C085EF3B23CD3FF30026172A /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C085EF3A23CD3FF30026172A /* Introspect */; };
+		C0D209F42422D39000E0C74F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C0D209F32422D39000E0C74F /* Introspect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C085EF3B23CD3FF30026172A /* Introspect in Frameworks */,
+				C0D209F42422D39000E0C74F /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +124,7 @@
 			);
 			name = SwiftUIRefresh;
 			packageProductDependencies = (
-				C085EF3A23CD3FF30026172A /* Introspect */,
+				C0D209F32422D39000E0C74F /* Introspect */,
 			);
 			productName = SwiftUIRefresh;
 			productReference = C085EF1223CD29340026172A /* SwiftUIRefresh.framework */;
@@ -176,7 +176,7 @@
 			);
 			mainGroup = C085EF0823CD29340026172A;
 			packageReferences = (
-				C085EF3923CD3FF30026172A /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				C0D209F22422D39000E0C74F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = C085EF1323CD29340026172A /* Products */;
 			projectDirPath = "";
@@ -469,20 +469,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C085EF3923CD3FF30026172A /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+		C0D209F22422D39000E0C74F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:siteline/SwiftUI-Introspect.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.6;
+				minimumVersion = 0.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C085EF3A23CD3FF30026172A /* Introspect */ = {
+		C0D209F32422D39000E0C74F /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C085EF3923CD3FF30026172A /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			package = C0D209F22422D39000E0C74F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
