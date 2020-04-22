@@ -40,11 +40,11 @@ private struct PullToRefresh: UIViewRepresentable {
         return view
     }
     
-    private func tableView(entry: UIView) -> UITableView? {
+    private func scrollView(entry: UIView) -> UIScrollView? {
         
         // Search in ancestors
-        if let tableView = Introspect.findAncestor(ofType: UITableView.self, from: entry) {
-            return tableView
+        if let scrollView = Introspect.findAncestor(ofType: UIScrollView.self, from: entry) {
+            return scrollView
         }
 
         guard let viewHost = Introspect.findViewHost(from: entry) else {
@@ -59,11 +59,11 @@ private struct PullToRefresh: UIViewRepresentable {
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             
-            guard let tableView = self.tableView(entry: uiView) else {
+            guard let scrollView = self.scrollView(entry: uiView) else {
                 return
             }
             
-            if let refreshControl = tableView.refreshControl {
+            if let refreshControl = scrollView.refreshControl {
                 if self.isShowing {
                     refreshControl.beginRefreshing()
                 } else {
@@ -74,7 +74,7 @@ private struct PullToRefresh: UIViewRepresentable {
             
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.onValueChanged), for: .valueChanged)
-            tableView.refreshControl = refreshControl
+            scrollView.refreshControl = refreshControl
         }
     }
     
