@@ -62,19 +62,24 @@ private struct PullToRefresh: UIViewRepresentable {
             guard let tableView = self.tableView(entry: uiView) else {
                 return
             }
+
+            if tableView.refreshControl == nil {
+                let refreshControl = UIRefreshControl()
+                refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.onValueChanged), for: .valueChanged)
+                tableView.refreshControl = refreshControl
+            }
             
             if let refreshControl = tableView.refreshControl {
                 if self.isShowing {
+                    if !refreshControl.isRefreshing {
+                        tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refreshControl.frame.size.height), animated: true)
+                    }
+
                     refreshControl.beginRefreshing()
                 } else {
                     refreshControl.endRefreshing()
                 }
-                return
             }
-            
-            let refreshControl = UIRefreshControl()
-            refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.onValueChanged), for: .valueChanged)
-            tableView.refreshControl = refreshControl
         }
     }
     
