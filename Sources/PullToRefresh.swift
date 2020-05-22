@@ -33,17 +33,17 @@ private struct PullToRefresh: UIViewRepresentable {
         }
     }
     
-    public func makeUIView(context: UIViewRepresentableContext<PullToRefresh>) -> UIView {
+    public func makeUIView(context: Context) -> UIView {
         let view = UIView(frame: .zero)
         view.isHidden = true
         view.isUserInteractionEnabled = false
         return view
     }
     
-    private func tableView(entry: UIView) -> UITableView? {
+    private func scrollView(entry: UIView) -> UIScrollView? {
         
         // Search in ancestors
-        if let tableView = Introspect.findAncestor(ofType: UITableView.self, from: entry) {
+        if let scrollView = Introspect.findAncestor(ofType: UIScrollView.self, from: entry) {
             return tableView
         }
 
@@ -52,14 +52,14 @@ private struct PullToRefresh: UIViewRepresentable {
         }
 
         // Search in siblings
-        return Introspect.previousSibling(containing: UITableView.self, from: viewHost)
+        return Introspect.previousSibling(containing: UIScrollView.self, from: viewHost)
     }
 
-    public func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<PullToRefresh>) {
+    public func updateUIView(_ uiView: UIView, context: Context) {
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             
-            guard let tableView = self.tableView(entry: uiView) else {
+            guard let scrollView = self.scrollView(entry: uiView) else {
                 return
             }
             
@@ -74,7 +74,7 @@ private struct PullToRefresh: UIViewRepresentable {
             
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.onValueChanged), for: .valueChanged)
-            tableView.refreshControl = refreshControl
+            scrollView.refreshControl = refreshControl
         }
     }
     
