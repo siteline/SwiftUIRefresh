@@ -5,12 +5,14 @@ private struct PullToRefresh: UIViewRepresentable {
     
     @Binding var isShowing: Bool
     let onRefresh: () -> Void
-    
+    let tintColor: UIColor?
     public init(
         isShowing: Binding<Bool>,
+        tintColor: UIColor? = nil,
         onRefresh: @escaping () -> Void
     ) {
         _isShowing = isShowing
+        self.tintColor = tintColor
         self.onRefresh = onRefresh
     }
     
@@ -73,6 +75,9 @@ private struct PullToRefresh: UIViewRepresentable {
             }
             
             let refreshControl = UIRefreshControl()
+            if let tintColor = tintColor {
+                refreshControl.tintColor = tintColor
+            }
             refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.onValueChanged), for: .valueChanged)
             tableView.refreshControl = refreshControl
         }
@@ -84,9 +89,9 @@ private struct PullToRefresh: UIViewRepresentable {
 }
 
 extension View {
-    public func pullToRefresh(isShowing: Binding<Bool>, onRefresh: @escaping () -> Void) -> some View {
+    public func pullToRefresh(isShowing: Binding<Bool>, tintColor: UIColor? = nil, onRefresh: @escaping () -> Void) -> some View {
         return overlay(
-            PullToRefresh(isShowing: isShowing, onRefresh: onRefresh)
+            PullToRefresh(isShowing: isShowing, tintColor: tintColor, onRefresh: onRefresh)
                 .frame(width: 0, height: 0)
         )
     }
