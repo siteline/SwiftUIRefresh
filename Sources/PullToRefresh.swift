@@ -65,9 +65,13 @@ private struct PullToRefresh: UIViewRepresentable {
             
             if let refreshControl = tableView.refreshControl {
                 if self.isShowing {
-                    refreshControl.beginRefreshing()
+                    if !refreshControl.isRefreshing {
+                        refreshControl.beginRefreshing()
+                    }
                 } else {
-                    refreshControl.endRefreshing()
+                    if refreshControl.isRefreshing {
+                        refreshControl.endRefreshing()
+                    }
                 }
                 return
             }
